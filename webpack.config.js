@@ -1,25 +1,32 @@
 var webpack = require('webpack')
+var fs = require('fs')
 var path = require('path')
-var glob = require("glob")
-var eol = require('os').EOL
-const clientDir = process.cwd(), runnnDir = __dirname
+var getConfig = require('./context.config')
 
-let dir = process.argv.find(arg => /^examplesDir\=.+/.test(arg))
-if(dir) dir = dir.replace('examplesDir=', '')
-else throw new Error(`Missing argumnet: examplesDir ${eol}use: webpack-dev-server --define examplesDir=<path>${eol}use: npm start -- --define examplesDir=<path>`)
+const clientDir = process.cwd()
 
-var { examplesDir, examplesRegex } = getExamplesConfig(dir)
+const defaultTarget = './examples'
+let dirStr = process.argv.find(arg => /^targetDir\=.+/.test(arg)), targetDir
+if(dirStr) targetDir = dirStr.replace('targetDir=', '')
+else targetDir = defaultTarget
+
+if(!fs.existsSync(path.join(clientDir, targetDir)))  {
+  throw new Error(`Invalid argumnet: targetDir=<path>`)
+  //targetDir ${eol}use: webpack-dev-server --define targetDir=<path>${eol}use: npm start -- --define 
+}
+
+const config = getConfig(targetDir, path.join(clientDir, targetDir))
 
 module.exports = {
-  devtool: "source-map",
+  devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    path.join(clientDir, dir, '/entry.js')
+    //'webpack/hot/only-dev-server',
+    path.join(clientDir, targetDir, '/entry.js')
   ],
   output: {
-    path: path.join(clientDir, 'dist/'),
-    filename: 'examples.bundle.js',
-    sourceMapFilename: 'examples.bundle.map.js'
+    //path: path.join(clientDir, 'dist'),
+    filename: 'bundle.js',
   },
   module: {
     loaders: [
@@ -29,14 +36,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      __examplesDir: JSON.stringify(examplesDir),
-      __examplesRegex: examplesRegex
-    }),
-    new webpack.NormalModuleReplacementPlugin(new RegExp(`^${escapeRx(dir)}$`), function(resource) {
-      resource.context = __dirname
-      resource.request = `./requireExamples`
-    })
+    new webpack.DefinePlugin(config.definitions),
+    new webpack.NormalModuleReplacementPlugin(...config.replacement)
+    //new webpack.HotModuleReplacementPlugin()
   ],
   externals: {
     "prop-types": "PropTypes",
@@ -46,19 +48,3 @@ module.exports = {
   }
 };
 
-function getExamplesConfig(loc) {
-  let examplesDir = path.join(clientDir, loc).replace(/\\/g,'/')
-  let pjs = glob.sync(path.join(examplesDir, '/**/package.json'))
-  let examples = []
-  let moduleFriendly = p => escapeRx(path.relative(examplesDir, require.resolve(p)).replace(/\\/g,'/'))
-  pjs.forEach(pj => {
-    let dir = pj.replace(/\/package\.json$/, '')
-    examples.push(moduleFriendly(dir))
-  })
-  let pathsRegex = paths => new RegExp(paths.length ? paths.join('$|').concat('$') : '.^')
-  return {examplesDir, examplesRegex: pathsRegex(examples)}
-}
-
-function escapeRx(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}

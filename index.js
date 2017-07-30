@@ -5,6 +5,7 @@ const WebpackDevServer = require("webpack-dev-server");
 const webpackConfig = require("./webpack.config");
 
 const options = {
+	inline: true,
   historyApiFallback: true,
   stats: { colors: true }
 };
@@ -17,5 +18,3 @@ server.listen(8080, "localhost", function(err) {
 	}
 	console.log("Starting server on http://localhost:8080");
 });
-
-//webpack-dev-server --define examplesDir=./examples
