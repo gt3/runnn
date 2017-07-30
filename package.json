@@ -1,6 +1,6 @@
 {
   "name": "runnn",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Examples runner",
   "bin": "index.js",
   "scripts": {
