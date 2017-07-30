@@ -26,5 +26,11 @@
     "ultra": "^0.7.0",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.6.1"
-  }
+  },
+  "files": [
+    "index.js",
+    "context.build.js",
+    "context.config.js",
+    "webpack.config.js"
+  ]
 }

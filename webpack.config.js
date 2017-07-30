@@ -32,7 +32,17 @@ module.exports = {
     loaders: [
       { test: /\.md$/, loader: 'html-loader!markdown-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { 
+        test: /\.jsx?$/, 
+        exclude: /node_modules/, 
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ["es2016", "stage-2"],
+            plugins: ["transform-react-jsx"]
+          }
+        }
+      }
     ]
   },
   plugins: [
