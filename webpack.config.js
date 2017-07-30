@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var path = require('path')
 var glob = require("glob")
 var eol = require('os').EOL
+const clientDir = process.cwd(), runnnDir = __dirname
 
 let dir = process.argv.find(arg => /^examplesDir\=.+/.test(arg))
 if(dir) dir = dir.replace('examplesDir=', '')
@@ -11,9 +12,12 @@ var { examplesDir, examplesRegex } = getExamplesConfig(dir)
 
 module.exports = {
   devtool: "source-map",
-  entry: './examples/entry.js',
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    path.join(clientDir, dir, '/entry.js')
+  ],
   output: {
-    path: path.join(__dirname, 'dist/'),
+    path: path.join(clientDir, 'dist/'),
     filename: 'examples.bundle.js',
     sourceMapFilename: 'examples.bundle.map.js'
   },
@@ -39,15 +43,11 @@ module.exports = {
     "react": "React",
     "react-dom": "ReactDOM",
     "ultra": "ultra"
-  },
-  devServer: {
-    //contentBase: path.join(__dirname, "examples"),
-    historyApiFallback: true
   }
 };
 
 function getExamplesConfig(loc) {
-  let examplesDir = path.join(__dirname, loc).replace(/\\/g,'/')
+  let examplesDir = path.join(clientDir, loc).replace(/\\/g,'/')
   let pjs = glob.sync(path.join(examplesDir, '/**/package.json'))
   let examples = []
   let moduleFriendly = p => escapeRx(path.relative(examplesDir, require.resolve(p)).replace(/\\/g,'/'))

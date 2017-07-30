@@ -1,6 +1,6 @@
 {
   "name": "runnn",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Examples runner",
   "bin": "index.js",
   "scripts": {
@@ -25,6 +25,6 @@
     "style-loader": "^0.18.2",
     "ultra": "^0.7.0",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.6.1"
   }
 }
