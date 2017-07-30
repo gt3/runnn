@@ -5,6 +5,7 @@ const WebpackDevServer = require("webpack-dev-server");
 const webpackConfig = require("./webpack.config");
 
 const options = {
+	contentBase: webpackConfig.context,
 	inline: true,
   historyApiFallback: true,
   stats: { colors: true }

@@ -18,11 +18,12 @@ if(!fs.existsSync(path.join(clientDir, targetDir)))  {
 const config = getConfig(targetDir, path.join(clientDir, targetDir))
 
 module.exports = {
+  context: path.join(clientDir, targetDir),
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     //'webpack/hot/only-dev-server',
-    path.join(clientDir, targetDir, '/entry.js')
+    './entry.js'
   ],
   output: {
     //path: path.join(clientDir, 'dist'),
