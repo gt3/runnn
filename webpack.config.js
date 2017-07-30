@@ -54,7 +54,8 @@ module.exports = {
     "prop-types": "PropTypes",
     "react": "React",
     "react-dom": "ReactDOM",
-    "ultra": "ultra"
+    "ultra": "ultra",
+    "react-ultra": "reactUltra"
   }
 };
 
