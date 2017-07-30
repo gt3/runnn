@@ -6,7 +6,7 @@
   "repository": "gt3/runnn",
   "author": "Ankit Patel <gt3.someday@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
