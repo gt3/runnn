@@ -9,6 +9,7 @@
   "bundledDependencies": [
     "babel-core",
     "babel-loader",
+    "babel-runtime",
     "babel-plugin-transform-react-jsx",
     "babel-preset-es2016",
     "babel-preset-stage-2",
