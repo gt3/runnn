@@ -6,24 +6,25 @@ var getConfig = require('./context.config')
 const clientDir = process.cwd()
 
 const defaultTarget = './examples'
-let dirStr = process.argv.find(arg => /^targetDir\=.+/.test(arg)), targetDir
+let dirStr = process.argv.find(arg => /^targetDir\=.+/.test(arg)), targetDir, targetAbsDir
 if(dirStr) targetDir = dirStr.replace('targetDir=', '')
 else targetDir = defaultTarget
 
-if(!fs.existsSync(path.join(clientDir, targetDir)))  {
+targetAbsDir = path.join(clientDir, targetDir)
+
+if(!fs.existsSync(targetAbsDir))  {
   throw new Error(`Invalid argumnet: targetDir=<path>`)
   //targetDir ${eol}use: webpack-dev-server --define targetDir=<path>${eol}use: npm start -- --define 
 }
 
-const config = getConfig(targetDir, path.join(clientDir, targetDir))
+const config = getConfig(targetDir, targetAbsDir)
 
-module.exports = {
-  context: path.join(clientDir, targetDir),
+var wconfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     //'webpack/hot/only-dev-server',
-    './entry.js'
+    path.join(targetAbsDir, '/entry.js')
   ],
   output: {
     //path: path.join(clientDir, 'dist'),
@@ -60,3 +61,4 @@ module.exports = {
   }
 };
 
+module.exports = {wconfig, targetDir, targetAbsDir}

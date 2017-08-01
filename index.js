@@ -2,10 +2,11 @@
 
 const Webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
-const webpackConfig = require("./webpack.config");
+const cfg = require("./webpack.config");
+const webpackConfig = cfg.wconfig
 
 const options = {
-	contentBase: webpackConfig.context,
+	contentBase: cfg.targetAbsDir,
 	inline: true,
   historyApiFallback: true,
   stats: { colors: true }
