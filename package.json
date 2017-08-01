@@ -12,6 +12,20 @@
     "context.config.js",
     "webpack.config.js"
   ],
+  "bundledDependencies": [
+    "babel-core",
+    "babel-loader",
+    "babel-plugin-transform-react-jsx",
+    "babel-preset-es2016",
+    "babel-preset-stage-2",
+    "css-loader",
+    "glob",
+    "html-loader",
+    "markdown-loader",
+    "style-loader",
+    "webpack",
+    "webpack-dev-server"
+  ],
   "dependencies": {
     "babel-core": "=6.25.0",
     "babel-loader": "=7.1.1",

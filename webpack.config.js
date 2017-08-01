@@ -19,12 +19,13 @@ if(!fs.existsSync(targetAbsDir))  {
 
 const config = getConfig(targetDir, targetAbsDir)
 
-var wconfig = {
+module.exports = {
+  context: targetAbsDir,
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     //'webpack/hot/only-dev-server',
-    path.join(targetAbsDir, '/entry.js')
+    './entry.js'
   ],
   output: {
     //path: path.join(clientDir, 'dist'),
@@ -40,8 +41,8 @@ var wconfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ["es2016", "stage-2"],
-            plugins: ["transform-react-jsx"]
+            presets: [require("babel-preset-es2016"), require("babel-preset-stage-2")],
+            plugins: [require("babel-plugin-transform-react-jsx")]
           }
         }
       }
@@ -58,7 +59,12 @@ var wconfig = {
     "react-dom": "ReactDOM",
     "ultra": "ultra",
     "react-ultra": "reactUltra"
+  },
+  resolve: {
+    modules: [path.join(__dirname, "/node_modules"), "node_modules"]
+    //unsafeCache: /runnn\/node_modules/
+  },
+  resolveLoader: {
+    modules: [path.join(__dirname, "/node_modules"), "node_modules"]
   }
 };
-
-module.exports = {wconfig, targetDir, targetAbsDir}
