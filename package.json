@@ -9,7 +9,8 @@
   "files": [
     "pack.js",
     "unpack.js",
-    "runnner"
+    "runnner",
+    "./runnner/.npmrc"
   ],
   "dependencies": {
     "baltar": "1.0.1"
