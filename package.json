@@ -15,7 +15,7 @@
     "baltar": "1.0.1"
   },
   "scripts": {
-    "prepack": "cd ./runnner && npm install && cd .. && npx ./pack.js",
-    "postinstall": "npx ./unpack.js"
+    "prepack": "cd ./runnner && npm install && cd .. && node pack.js",
+    "postinstall": "node unpack.js"
   }
 }
