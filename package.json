@@ -1,29 +1,21 @@
 {
   "name": "runnn",
   "version": "0.2.2",
-  "description": "Examples runner > npx runnn",
-  "bin": "index.js",
+  "description": "Examples runner",
+  "bin": "./runnner/index.js",
   "repository": "gt3/runnn",
   "author": "Ankit Patel <gt3.someday@gmail.com>",
   "license": "MIT",
   "files": [
-    "index.js",
-    "context.build.js",
-    "context.config.js",
-    "webpack.config.js"
+    "pack.js",
+    "unpack.js",
+    "runnner"
   ],
   "dependencies": {
-    "babel-core": "=6.25.0",
-    "babel-loader": "=7.1.1",
-    "babel-plugin-transform-react-jsx": "=6.24.1",
-    "babel-preset-es2016": "=6.24.1",
-    "babel-preset-stage-2": "=6.24.1",
-    "css-loader": "=0.28.4",
-    "glob": "=7.1.2",
-    "html-loader": "=0.5.0",
-    "markdown-loader": "=2.0.1",
-    "style-loader": "=0.18.2",
-    "webpack": "=3.4.1",
-    "webpack-dev-server": "=2.6.1"
+    "baltar": "1.0.1"
+  },
+  "scripts": {
+    "prepack": "cd ./runnner && npm install && cd .. && npx ./pack.js",
+    "postinstall": "npx ./unpack.js"
   }
 }
