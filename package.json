@@ -1,6 +1,6 @@
 {
   "name": "runnn",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Examples runner",
   "bin": "./runnner/index.js",
   "repository": "gt3/runnn",
@@ -19,7 +19,7 @@
     "prepack": "cd ./runnner && npm install && cd .. && node pack.js",
     "postinstall": "node unpack.js"
   },
-  "engines" : {
-    "npm" : ">=4.2.0"
+  "engines": {
+    "npm": ">=4.2.0"
   }
 }
