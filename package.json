@@ -1,6 +1,6 @@
 {
   "name": "runnn",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Examples runner",
   "bin": "./runnner/index.js",
   "repository": "gt3/runnn",
