@@ -18,5 +18,8 @@
   "scripts": {
     "prepack": "cd ./runnner && npm install && cd .. && node pack.js",
     "postinstall": "node unpack.js"
+  },
+  "engines" : {
+    "npm" : ">=4.2.0"
   }
 }
