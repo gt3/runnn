@@ -11,7 +11,7 @@ function makePathRx(paths) {
 
 function create(targetDirAbs) {
   let loc = targetDirAbs.replace(/\\/g,'/')
-  let pjs = glob.sync(path.join(loc, '/**/package.json'))
+  let pjs = glob.sync(path.join(loc, '/**/package.json'), { ignore: ["**/node_modules/**", "**/bower_components/**"] })
   let moduleFriendly = p => escapeRx(path.relative(loc, require.resolve(p)).replace(/\\/g,'/'))
   let targets = pjs.map(pj => moduleFriendly(pj.replace(/\/package\.json$/, '')))
   return {__targetDir: JSON.stringify(loc), __targetRx: makePathRx(targets)}
